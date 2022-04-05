@@ -19,9 +19,11 @@ create table Users
 -- ALTER table Users --make sure all data is there for the address to exist
 -- ADD CONSTRAINT ck_address0 CHECK (address is null OR (address is not null and city is not null and state is not null and zipcode is not null));
 
+--
 create table Products (
     pid varchar(20),
     pName varchar(20),
+    department varchar(20),
     price numeric(12,2)
 );
 create table Warehouses (
@@ -44,7 +46,8 @@ create table Stores (
 create table Inventory (
     quantity int,
     held_At varchar(20) references Warehouses (wid),
-    pid varchar(20) references Products (pid)
+    pid varchar(20) references Products (pid),
+    aisle varchar(20)
 );
 create table Sales(
     saleID varchar(20) primary key,

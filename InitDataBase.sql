@@ -47,7 +47,6 @@ create table Inventory (
     quantity int,
     held_At varchar(20) references Warehouses (wid),
     pid varchar(20) references Products (pid),
-    aisle varchar(20)
 );
 create table Sales(
     saleID varchar(20) primary key,

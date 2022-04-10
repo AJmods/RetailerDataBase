@@ -1,4 +1,4 @@
---Any value in this table can be null
+--Any value in Users table can be null
 create table Users
 (
     userID      varchar(20) primary key,
@@ -15,7 +15,16 @@ create table Users
     --make sure all data is there for the address to exist
 
 );
---
+
+INSERT INTO Users VALUES ('123','deeznuts@.iit.edu','Robot Downy', 'Syndrome', '6969696969','01-JAN-70','123 duh wae','Shitcago','IL','42069');
+
+SELECT
+  value
+FROM
+  V$NLS_PARAMETERS
+WHERE
+  parameter = 'NLS_DATE_LANGUAGE';
+
 -- ALTER table Users --make sure all data is there for the address to exist
 -- ADD CONSTRAINT ck_address0 CHECK (address is null OR (address is not null and city is not null and state is not null and zipcode is not null));
 

@@ -10,6 +10,7 @@ from functools import reduce
 import os
 import sys
 import cx_Oracle
+import pandas as pd
 from flask import Flask, render_template
 
 # SET UP THESE ENVIRONMENT VARIABLES BEFORE RUNNING THE PROGRAM
@@ -159,9 +160,12 @@ def displayUserTable():
     cursor = connection.cursor()
     cursor.execute(
         "INSERT INTO Users VALUES ('123','deeznuts@.iit.edu','Robot Downy', 'Syndrome', '6969696969','01-01-70','123 duh wae','Shitcago','IL','42069')")
-    return "<html><body>" + sqlTableToHTML(cursor, 'users') + "</body></html>"
+    return "<html><body>" + sqlTableToHTMLPandas(connection, 'users')+ "</body></html>"
 
-
+def sqlTableToHTMLPandas(connection, tableName):
+    table = pd.read_sql(f'select * from {tableName}', connection)
+    s = table.to_html()
+    return s
 def sqlTableToHTML(cursor, tableName):
     cursor.execute(f"select COLUMN_NAME from SYS.USER_TAB_COLUMNS where TABLE_NAME = '{tableName.upper()}'")
     s = "<table border = '1' style='width:450px; text-align: center'>"

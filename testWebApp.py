@@ -160,7 +160,7 @@ def displayUserTable():
     cursor = connection.cursor()
     cursor.execute(
         "INSERT INTO Users VALUES ('123','deeznuts@.iit.edu','Robot Downy', 'Syndrome', '6969696969','01-01-70','123 duh wae','Shitcago','IL','42069')")
-    return "<html><body>" + sqlTableToHTMLPandas(connection, 'users')+ "</body></html>"
+    return "<html><body>" + '<h1>Panadas table:</h1>' + sqlTableToHTMLPandas(connection, 'users') + '<h1>My table:</h1>'+ sqlTableToHTML(cursor, 'users')+ "</body></html>"
 
 def sqlTableToHTMLPandas(connection, tableName):
     table = pd.read_sql(f'select * from {tableName}', connection)
@@ -168,7 +168,7 @@ def sqlTableToHTMLPandas(connection, tableName):
     return s
 def sqlTableToHTML(cursor, tableName):
     cursor.execute(f"select COLUMN_NAME from SYS.USER_TAB_COLUMNS where TABLE_NAME = '{tableName.upper()}'")
-    s = "<table border = '1' style='width:450px; text-align: center'>"
+    s = "<table border = '1'>"
     s = s + '<tr>'
     for x in cursor:
         s = s + "<th>" + str(makeTextLookBetter(x[0])) + "</th>"

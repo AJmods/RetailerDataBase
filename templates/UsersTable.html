@@ -1,0 +1,37 @@
+{% extends "sampleTemplates/base.html" %}
+
+{% block content %}
+  <table id="data" class="table table-striped">
+    <thead>
+      <tr>
+        <th>userID</th>
+        <th>email</th>
+        <th>Name</th>
+        <th>Phone Number</th>
+          <th>Birth Date</th>
+          <th>Address</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+{% endblock %}
+
+{% block scripts %}
+  <script>
+    $(document).ready(function () {
+      $('#data').DataTable({
+        ajax: '/api/data/Users',
+        serverSide: true,
+        columns: [
+          {data: 'userID'},
+          {data: 'email'},
+            {data: 'name'},
+            {data: 'phoneNumber', orderable: false},
+            {data: 'birthDate'},
+          {data: 'address', orderable: false}
+        ],
+      });
+    });
+  </script>
+{% endblock %}

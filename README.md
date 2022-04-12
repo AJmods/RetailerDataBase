@@ -1,3 +1,5 @@
 # RetailerDataBase
 
-# We will fill this in later
+## Liberies Used:
+
+https://github.com/miguelgrinberg/flask-tables

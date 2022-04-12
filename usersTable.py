@@ -1,19 +1,7 @@
-"""
-demo.py
-
-Christopher Jones, 10 Sep 2020
-
-Demo of using flask with Oracle Database
-"""
-from functools import reduce
-
 import os
-import sys
-import cx_Oracle
-import pandas as pd
+
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
-from jinja2 import meta
 from sqlalchemy import create_engine
 
 app = Flask(__name__)
@@ -35,7 +23,8 @@ db = SQLAlchemy(app)
 
 class Users(db.Model):
     userID = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(64), index=True)
+    firstName = db.Column(db.String(64), index=True)
+    lastName = db.Column(db.String(64), index=True)
     birthDate = db.Column(db.String(20), index=True)
     address = db.Column(db.String(256))
     phoneNumber = db.Column(db.String(20))
@@ -44,8 +33,9 @@ class Users(db.Model):
     def to_dict(self):
         return {
             'userID': self.userID,
-            'name': self.name,
-            'birthDate': self.birthDate,
+            'firstName': self.firstName,
+            'lastName': self.lastName,
+            'birthdate': self.birthDate,
             'address': self.address,
             'phoneNumber': self.phoneNumber,
             'email': self.email
@@ -53,14 +43,12 @@ class Users(db.Model):
 
 db.create_all()
 
-# Display a welcome message on the 'home' page
+
 @app.route('/')
 def index():
-    return "Welcome to the app"
-
-@app.route('/Users')
-def displayUsers():
     return render_template('UsersTable.html', title='Users Table')
+
+
 @app.route('/api/data/Users')
 def data():
     query = Users.query
@@ -82,7 +70,7 @@ def data():
         if col_index is None:
             break
         col_name = request.args.get(f'columns[{col_index}][data]')
-        if col_name not in ['name', 'email']:
+        if col_name not in ['name', 'age', 'email']:
             col_name = 'name'
         descending = request.args.get(f'order[{i}][dir]') == 'desc'
         col = getattr(Users, col_name)
@@ -107,11 +95,5 @@ def data():
     }
 
 
-
-
-################################################################################
-#
-# Initialization is done once at startup time
-#
 if __name__ == '__main__':
     app.run()

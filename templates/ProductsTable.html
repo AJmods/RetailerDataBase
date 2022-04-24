@@ -4,12 +4,12 @@
   <table id="data" class="table table-striped">
     <thead>
       <tr>
-        <th>userID</th>
-        <th>email</th>
+        <th>ProductID</th>
         <th>Name</th>
-        <th>Phone Number</th>
-          <th>Birth Date</th>
-          <th>Address</th>
+        <th>Department</th>
+          <th>Price</th>
+          <th>Image</th>
+          <th>Button</th>
       </tr>
     </thead>
     <tbody>
@@ -21,15 +21,15 @@
   <script>
     $(document).ready(function () {
       $('#data').DataTable({
-        ajax: '/api/data/Users',
+        ajax: '/api/data/Products',
         serverSide: true,
         columns: [
-          {data: 'userID'},
-          {data: 'email'},
-            {data: 'name'},
-            {data: 'phoneNumber', orderable: false},
-            {data: 'birthDate'},
-          {data: 'address', orderable: false}
+          {data: 'productID'},
+          {data: 'name'},
+            {data: 'department'},
+            {data: 'price'},
+            {data: 'image'},
+            {data: 'button'}
         ],
       });
     });

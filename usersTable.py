@@ -2,7 +2,8 @@ import os
 
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, Identity
+from wtforms_sqlalchemy.orm import model_form
 
 app = Flask(__name__)
 
@@ -22,7 +23,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 class Users(db.Model):
-    userID = db.Column(db.Integer, primary_key=True)
+    userID = db.Column(db.Integer, Identity(start=3), primary_key=True)
     firstName = db.Column(db.String(64), index=True)
     lastName = db.Column(db.String(64), index=True)
     birthDate = db.Column(db.String(20), index=True)
@@ -43,9 +44,26 @@ class Users(db.Model):
 
 db.create_all()
 
+userForm = model_form(Users)
 
-@app.route('/')
+@app.route('/', methods=["GET", "POST"])
 def index():
+    
+    user = Users()
+    success = False
+
+    if request.method == "POST":
+        form = userForm(request.form, obj=user)
+        if form.validate():
+            form.populate_obj(user)
+            db.session.add(user)
+            db.session.commit()
+            success = True
+    else:
+        form = userForm(obj=user)
+
+    #return render_template("create.html", form=form, success=success)
+    
     return render_template('UsersTable.html', title='Users Table')
 
 

@@ -30,8 +30,7 @@ def create_fake_users(n):
     """Generate fake users."""
     faker = Faker()
     for i in range(n):
-        user = Users(userID=i,
-                    email=faker.email(),
+        user = Users(email=faker.email(),
                      name=faker.name(),
                      birthDate=faker.date_between(start_date="-80y",end_date="-18y"),
                     address=faker.address().replace('\n', ', '),

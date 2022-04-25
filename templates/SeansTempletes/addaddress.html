@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block styles %}
+{% endblock %}
+{%block content %}
+<form action="#" method="POST">
+    <input type="text" name="street" placeholder="Enter street" value=""{{street if street}}/>
+    <input type ="text" name = "state" placeholder="Enter state" value="" {{state if state}}/>
+    <input type="text" name ="city" placeholder="Enter city" value=""{{city if city}}/>
+    <input type="number" name ="zip" placeholder="Enter zipcode" value=""{{zip if zip}}/>
+    <input type="submit" value="submit"/>   
+</form>
+{% endblock %}

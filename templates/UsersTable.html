@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "TableBase.html" %}
 
 {% block content %}
   <table id="data" class="table table-striped">
@@ -24,24 +24,13 @@
         ajax: '/api/data/Users',
         serverSide: true,
         columns: [
-          {data: 'userID'},
+          {data: 'id'},
           {data: 'email'},
             {data: 'name'},
             {data: 'phoneNumber', orderable: false},
-            {data: 'birthDate'},
-          {data: 'address', orderable: false}
+            {data: 'birthDate'}
         ],
       });
     });
   </script>
-{% endblock %}
-
-{% block form %}
-      {% if success %}<p>Saved Successfully!</p>{% endif %}
-      <form method="post" action="">
-        {% for field in form %}
-          <p>{{ field.label }} {{ field }}</p>
-        {% endfor %}
-        <p><button type="submit">Submit</button></p>
-      </form>
 {% endblock %}
